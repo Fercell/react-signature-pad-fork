@@ -15,7 +15,8 @@ export default class SignatureCanvas extends Component {
     onEnd: PropTypes.func,
     onBegin: PropTypes.func,
     canvasProps: PropTypes.object,
-    clearOnResize: PropTypes.bool
+    clearOnResize: PropTypes.bool,
+    ratio: PropTypes.number
   }
 
   static defaultProps = {
@@ -29,7 +30,8 @@ export default class SignatureCanvas extends Component {
     onEnd: () => {},
     onBegin: () => {},
     backgroundColor: 'rgba(0,0,0,0)',
-    clearOnResize: true
+    clearOnResize: true,
+    ratio: window.devicePixelRatio || 1
   }
 
   componentDidMount () {
@@ -57,7 +59,7 @@ export default class SignatureCanvas extends Component {
 
   fromDataURL = (dataURL) => {
     let image = new Image()
-    let ratio = window.devicePixelRatio || 1
+    let { ratio } = this.props
     let width = this._canvas.width / ratio
     let height = this._canvas.height / ratio
 
@@ -101,7 +103,7 @@ export default class SignatureCanvas extends Component {
     /* When zoomed out to less than 100%, for some very strange reason,
       some browsers report devicePixelRatio as less than 1
       and only part of the canvas is cleared then. */
-    let ratio =  Math.max(window.devicePixelRatio || 1, 1)
+    let ratio =  Math.max(this.props.ratio, 1)
 
     // only change width/height if none has been passed in as a prop
     if (!width) {
