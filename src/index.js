@@ -59,7 +59,7 @@ export default class SignatureCanvas extends Component {
 
   fromDataURL = (dataURL) => {
     let image = new Image()
-    let { ratio } = this.props
+    let ratio  = this.props.ratio
     let width = this._canvas.width / ratio
     let height = this._canvas.height / ratio
 
